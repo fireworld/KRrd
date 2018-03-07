@@ -53,6 +53,8 @@ project.ext {
     testEspresso = 'com.android.support.test.espresso:espresso-core:3.0.1'
     junit = 'junit:junit:4.12'
     gson = 'com.google.code.gson:gson:2.8.1'
+    dagger2 = 'com.google.dagger:dagger:2.11'
+    dagger2Compiler = 'com.google.dagger:dagger-compiler:2.11'
 //    umengAnalytics = 'com.umeng.analytics:analytics:latest.integration'
 //    richEditor = 'jp.wasabeef:richeditor-android:1.2.2'
 //    ucrop = 'com.github.yalantis:ucrop:2.2.1'

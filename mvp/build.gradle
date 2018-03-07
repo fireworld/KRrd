@@ -42,10 +42,9 @@ dependencies {
     androidTestImplementation rootProject.ext.testEspresso
     testImplementation rootProject.ext.junit
     implementation rootProject.ext.gson
+    implementation rootProject.ext.dagger2
+    annotationProcessor rootProject.ext.dagger2Compiler
 //    implementation rootProject.ext.ucrop
 //    implementation rootProject.ext.richEditor
 //    implementation rootProject.ext.umengAnalytics
-    // dagger 2 的配置
-    implementation 'com.google.dagger:dagger:2.11'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 }

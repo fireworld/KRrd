@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KRrd.iml" filepath="$PROJECT_DIR$/KRrd.iml" />
+      <module fileurl="file://D:\Workspace\AsProjects\KRrd\KRrd.iml" filepath="D:\Workspace\AsProjects\KRrd\KRrd.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Workspace\AsProjects\KRrd\app\app.iml" filepath="D:\Workspace\AsProjects\KRrd\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvp/mvp.iml" filepath="$PROJECT_DIR$/mvp/mvp.iml" />
+      <module fileurl="file://D:\Workspace\AsProjects\KRrd\mvp\mvp.iml" filepath="D:\Workspace\AsProjects\KRrd\mvp\mvp.iml" />
     </modules>
   </component>
 </project>
