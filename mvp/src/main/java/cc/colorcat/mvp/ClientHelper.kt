@@ -14,7 +14,7 @@ import java.util.*
  * Created by cxx on 2018/3/1.
  * xx.ch@outlook.com
  */
-object ClientHelper {
+object qClientHelper {
     val cache = WeakHashMap<String, Any>()
 
     lateinit var client: IClient
