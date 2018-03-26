@@ -3,11 +3,14 @@ package cc.colorcat.mvp
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import cc.colorcat.mvp.component.DaggerGlobalComponent
+import cc.colorcat.mvp.component.GlobalComponent
 import cc.colorcat.mvp.extension.L
 import cc.colorcat.mvp.extension.image.ImageLoader
 import cc.colorcat.mvp.extension.json.fromJson
 import cc.colorcat.mvp.extension.json.toJson
 import cc.colorcat.mvp.extension.net.ApiService
+import cc.colorcat.mvp.module.NetworkModule
 import java.util.*
 
 /**
@@ -16,6 +19,10 @@ import java.util.*
  */
 object ClientHelper {
     val cache = WeakHashMap<String, Any>()
+
+    val globalComponent: GlobalComponent by lazy {
+        DaggerGlobalComponent.builder().networkModule(NetworkModule(client)).build()
+    }
 
     lateinit var client: IClient
         private set

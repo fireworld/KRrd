@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -43,7 +44,16 @@ dependencies {
     testImplementation rootProject.ext.junit
     implementation rootProject.ext.gson
     implementation rootProject.ext.dagger2
-    annotationProcessor rootProject.ext.dagger2Compiler
+//    annotationProcessor rootProject.ext.dagger2Compiler
+    kapt rootProject.ext.dagger2Compiler
+//    kaptAndroidTest rootProject.ext.dagger2Compiler
+    implementation rootProject.ext.okhttp3
+    implementation rootProject.ext.okhttp3Logging
+    implementation rootProject.ext.retrofit2
+    implementation rootProject.ext.retrofit2ConverterGson
+    implementation rootProject.ext.retrofit2AdapterRxJava2
+    implementation rootProject.ext.rxJava2
+    implementation rootProject.ext.rxAndroid2
 //    implementation rootProject.ext.ucrop
 //    implementation rootProject.ext.richEditor
 //    implementation rootProject.ext.umengAnalytics

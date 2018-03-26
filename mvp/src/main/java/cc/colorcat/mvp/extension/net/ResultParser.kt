@@ -1,6 +1,6 @@
 package cc.colorcat.mvp.extension.net
 
-import cc.colorcat.kmvp.entity.Result
+import cc.colorcat.mvp.entity.Result
 import cc.colorcat.mvp.extension.json.fromJson
 import cc.colorcat.netbird4.NetworkData
 import cc.colorcat.netbird4.Parser

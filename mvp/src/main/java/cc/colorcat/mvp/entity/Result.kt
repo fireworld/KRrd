@@ -1,4 +1,4 @@
-package cc.colorcat.kmvp.entity
+package cc.colorcat.mvp.entity
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,6 +1,6 @@
 package cc.colorcat.mvp.api
 
-import cc.colorcat.kmvp.entity.Result
+import cc.colorcat.mvp.entity.Result
 import cc.colorcat.mvp.extension.net.ApiService
 import cc.colorcat.mvp.extension.net.MListener
 import cc.colorcat.mvp.extension.net.ResultParser
