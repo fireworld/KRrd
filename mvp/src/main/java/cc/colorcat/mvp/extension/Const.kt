@@ -12,6 +12,7 @@ class Const private constructor() {
     class key private constructor() {
         companion object {
             const val container_layout = "container_layout"
+            const val course_list = "course_list"
         }
     }
 

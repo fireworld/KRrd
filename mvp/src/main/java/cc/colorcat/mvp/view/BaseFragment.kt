@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import cc.colorcat.mvp.ClientHelper
 import cc.colorcat.mvp.R
 import cc.colorcat.mvp.contract.IBase
 import cc.colorcat.mvp.extension.hasPermission
@@ -110,13 +110,13 @@ abstract class BaseFragment : Fragment(), IBase.View {
 
     final override fun toast(resId: Int) {
         if (isActive) {
-            context?.also { Toast.makeText(it, resId, Toast.LENGTH_SHORT).show() }
+            ClientHelper.client.toast(getText(resId))
         }
     }
 
     final override fun toast(text: CharSequence) {
         if (isActive) {
-            context?.also { Toast.makeText(it, text, Toast.LENGTH_SHORT).show() }
+            ClientHelper.client.toast(text)
         }
     }
 

@@ -13,5 +13,14 @@ data class Result<T>(
 ) {
     companion object {
         const val STATUS_OK = 1
+
+        const val STATUS_CONNECT_ERROR = -1
+        const val MSG_CONNECT_ERROR = "connect error"
+
+        const val STATUS_JSON_ERROR = -2
+        const val MSG_JSON_ERROR = "json parser error"
+
+        const val STATUS_UNKNOWN = -2
+        const val MSG_UNKNOWN = "unknown"
     }
 }

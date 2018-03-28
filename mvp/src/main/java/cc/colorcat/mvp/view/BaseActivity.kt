@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
+import cc.colorcat.mvp.ClientHelper
 import cc.colorcat.mvp.R
 import cc.colorcat.mvp.contract.IBase
 import cc.colorcat.mvp.extension.hasPermission
@@ -82,11 +82,11 @@ abstract class BaseActivity : AppCompatActivity(), IBase.View {
     final override fun isTipShowing(): Boolean = mTip.isShowing
 
     final override fun toast(@StringRes resId: Int) {
-        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show()
+        this.toast(getText(resId))
     }
 
     final override fun toast(text: CharSequence) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+        ClientHelper.client.toast(text)
     }
 
     protected fun navigateTo(clazz: Class<out BaseActivity>, finish: Boolean = false) {
