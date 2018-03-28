@@ -25,14 +25,14 @@ class CourseListFragment : ListFragment<Course>() {
             override fun realGetItems(item: Course?, loadMore: Boolean) {
 //                mService.setType(4).setNumber(30).send {
 //                    object : WeakListener<List<Course>, IList.View<Course>>(mView) {
-//                        override fun onSuccess(view: IList.View<Course>, data: List<Course>) {
-//                            view.hideTip()
-//                            view.refreshItems(data)
+//                        override fun onSuccess(mView: IList.View<Course>, data: List<Course>) {
+//                            mView.hideTip()
+//                            mView.refreshItems(data)
 //                        }
 //
-//                        override fun onFinish(view: IList.View<Course>) {
-//                            super.onFinish(view)
-//                            view.stopRefreshing()
+//                        override fun onFinish(mView: IList.View<Course>) {
+//                            super.onFinish(mView)
+//                            mView.stopRefreshing()
 //                        }
 //                    }
 //                }

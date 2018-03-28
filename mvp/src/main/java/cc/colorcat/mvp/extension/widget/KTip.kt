@@ -38,7 +38,7 @@ class KTip private constructor(
         @JvmStatic
         fun from(content: View, @LayoutRes tipLayout: Int, listener: Listener?): KTip {
             val parent: ViewGroup = content.parent as? ViewGroup
-                    ?: throw NullPointerException("The specified content view must have a parent")
+                    ?: throw NullPointerException("The specified content mView must have a parent")
             return KTip(parent, content, tipLayout, listener)
         }
     }

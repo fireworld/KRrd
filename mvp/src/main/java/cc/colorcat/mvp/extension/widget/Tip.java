@@ -30,7 +30,7 @@ public class Tip {
     public static Tip from(View content, @LayoutRes int tipLayout, @Nullable Listener listener) {
         ViewGroup parent = (ViewGroup) content.getParent();
         if (parent == null) {
-            throw new NullPointerException("The specified content view must have a parent");
+            throw new NullPointerException("The specified content mView must have a parent");
         }
         return new Tip(parent, content, tipLayout, listener);
     }

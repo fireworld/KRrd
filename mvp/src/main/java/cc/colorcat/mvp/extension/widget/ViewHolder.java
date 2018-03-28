@@ -92,7 +92,7 @@ public class ViewHolder {
     }
 
     /**
-     * @throws NullPointerException if can not find the view by viewResId.
+     * @throws NullPointerException if can not find the mView by viewResId.
      */
     @SuppressWarnings(value = "unchecked")
     public <V extends View> V getView(@IdRes int viewResId) {
@@ -102,7 +102,7 @@ public class ViewHolder {
             if (view != null) {
                 mViews.put(viewResId, view);
             } else {
-                throw new NullPointerException("Can't find view, viewResId = " + viewResId);
+                throw new NullPointerException("Can't find mView, viewResId = " + viewResId);
             }
         }
         return (V) view;

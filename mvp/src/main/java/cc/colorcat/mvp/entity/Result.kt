@@ -20,7 +20,10 @@ data class Result<T>(
         const val STATUS_JSON_ERROR = -2
         const val MSG_JSON_ERROR = "json parser error"
 
-        const val STATUS_UNKNOWN = -2
+        const val STATUS_NULL_DATA = -3
+        const val MSG_NULL_DATA = "status is ok, but Result.data is null"
+
+        const val STATUS_UNKNOWN = -4
         const val MSG_UNKNOWN = "unknown"
     }
 }

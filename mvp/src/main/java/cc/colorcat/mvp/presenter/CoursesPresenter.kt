@@ -5,14 +5,13 @@ import cc.colorcat.mvp.contract.ICourses
 import cc.colorcat.mvp.entity.Course
 import cc.colorcat.mvp.extension.L
 import cc.colorcat.mvp.extension.net.WeakListener
-import cc.colorcat.mvp.extension.net.transform
 
 /**
  * Created by cxx on 18-1-31.
  * xx.ch@outlook.com
  */
 class CoursesPresenter : BasePresenter<ICourses.View>(), ICourses.Presenter {
-    private val mService = create(GetCourseList::class.java)
+    private val mService = apiFactory.create(GetCourseList::class.java)
 
     override fun onCreate(view: ICourses.View) {
         super.onCreate(view)
@@ -28,7 +27,7 @@ class CoursesPresenter : BasePresenter<ICourses.View>(), ICourses.Presenter {
     }
 
     private fun realGetCourses() {
-        transform(mService.getCourses(4, 30)) {
+        enqueue(mService.getCourses(4, 30)) {
             object : WeakListener<List<Course>, ICourses.View>(mView) {
                 override fun onStart(view: ICourses.View) {
                     super.onStart(view)
