@@ -36,11 +36,13 @@ class CoursesPresenter : BasePresenter<ICourses.View>(), ICourses.Presenter {
 
                 override fun onSuccess(view: ICourses.View, data: List<Course>) {
                     L.d("onSuccess from ICourses")
+                    view.hideTip()
                     view.refreshCourses(data)
                 }
 
                 override fun onFailure(view: ICourses.View, code: Int, msg: String) {
                     super.onFailure(view, code, msg)
+                    view.showTip()
                     L.d("onFailure from ICourses, code=$code, msg=$msg")
                 }
 
