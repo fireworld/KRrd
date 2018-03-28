@@ -3,6 +3,7 @@ package cc.colorcat.mvp.module
 import cc.colorcat.mvp.IClient
 import cc.colorcat.mvp.api.ApiFactory
 import cc.colorcat.mvp.extension.L
+import cc.colorcat.mvp.extension.json.gson
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -25,7 +26,9 @@ class NetworkModule(private val client: IClient) {
         L.d("provideApiFactory calling...")
         return object : ApiFactory {
             private val retrofit: Retrofit by lazy {
-                val cache = Cache(client.context.cacheDir, 30L * 1024L * 1024L)
+                val cacheDir = client.context.cacheDir
+                val cacheSize = Math.min((cacheDir.usableSpace * 0.2).toLong(), 30L * 1024L * 1024L)
+                val cache = Cache(cacheDir, cacheSize)
 
                 val okClient = OkHttpClient.Builder()
                         .addInterceptor(HttpLoggingInterceptor())
@@ -34,7 +37,7 @@ class NetworkModule(private val client: IClient) {
                 Retrofit.Builder()
                         .client(okClient)
                         .baseUrl(client.baseUrl)
-                        .addConverterFactory(GsonConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build()
             }
