@@ -1,9 +1,9 @@
 package cc.colorcat.mvp.extension.net
 
 import cc.colorcat.mvp.entity.Result
-import cc.colorcat.mvp.extension.L
 import com.google.gson.JsonParseException
 import io.reactivex.observers.DisposableObserver
+import retrofit2.HttpException
 import java.io.IOException
 
 /**
@@ -13,18 +13,14 @@ import java.io.IOException
 class RxCallback<T>(private val listener: ApiListener<T>?) : DisposableObserver<T>() {
     override fun onStart() {
         super.onStart()
-        L.d("onStart in RxCallback")
         listener?.onStart()
     }
 
     override fun onNext(t: T) {
-        L.d("onNext in RxCallback")
         listener?.onSuccess(t)
     }
 
     override fun onError(e: Throwable) {
-        L.e("onError in RxCallback")
-        L.e(e)
         var code = Result.STATUS_UNKNOWN
         var msg = Result.MSG_UNKNOWN
         when (e) {
@@ -36,9 +32,13 @@ class RxCallback<T>(private val listener: ApiListener<T>?) : DisposableObserver<
                 code = Result.STATUS_JSON_ERROR
                 msg = "${Result.MSG_JSON_ERROR}, cause=${e.message}"
             }
+            is HttpException -> {
+                code = Result.STATUS_CONNECT_ERROR
+                msg = "response code=${e.code()}, response msg=${e.message()}, cause=${e.message}"
+            }
             is IOException -> {
                 code = Result.STATUS_CONNECT_ERROR
-                msg = Result.MSG_CONNECT_ERROR
+                msg = "${Result.MSG_CONNECT_ERROR}, cause=${e.message}"
             }
         }
         listener?.onFailure(code, msg)
@@ -46,7 +46,6 @@ class RxCallback<T>(private val listener: ApiListener<T>?) : DisposableObserver<
     }
 
     override fun onComplete() {
-        L.d("onComplete in RxCallback")
         listener?.onFinish()
     }
 }

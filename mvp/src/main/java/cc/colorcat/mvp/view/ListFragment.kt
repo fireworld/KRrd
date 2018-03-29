@@ -18,10 +18,9 @@ import kotlinx.android.synthetic.main.fragment_list.*
  * xx.ch@outlook.com
  */
 abstract class ListFragment<T> : BaseFragment(), IList.View<T>, KTip.Listener {
-    override val mTip: KTip by lazy { KTip.from(rv_items, R.layout.network_error, this) }
     override val layoutResId: Int = R.layout.fragment_list
 
-    protected abstract val mPresenter: IList.Presenter<T>
+    protected open lateinit var mPresenter: IList.Presenter<T>
     protected open val mRefreshable = true
     protected val mItems: MutableList<T> = mutableListOf()
     private val mAdapter: RvAdapter by lazy { createAdapter(mItems) }
@@ -60,6 +59,8 @@ abstract class ListFragment<T> : BaseFragment(), IList.View<T>, KTip.Listener {
         mPresenter.onDestroy()
         super.onDestroyView()
     }
+
+    override fun lazyKTip(): KTip = KTip.from(rv_items, R.layout.network_error, this)
 
     override fun refreshItems(items: List<T>) {
         mItems.clear()

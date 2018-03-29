@@ -1,29 +1,35 @@
 package cc.colorcat.mvp.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import cc.colorcat.mvp.R
 import cc.colorcat.mvp.contract.ICourses
+import cc.colorcat.mvp.dagger.component.DaggerCoursesComponent
+import cc.colorcat.mvp.dagger.module.CoursesModule
 import cc.colorcat.mvp.entity.Course
 import cc.colorcat.mvp.extension.image.CornerTransformer
 import cc.colorcat.mvp.extension.image.ImageLoader
 import cc.colorcat.mvp.extension.widget.*
-import cc.colorcat.mvp.presenter.CoursesPresenter
 import kotlinx.android.synthetic.main.activity_courses.*
+import javax.inject.Inject
 
 /**
  * Created by cxx on 18-1-31.
  * xx.ch@outlook.com
  */
 class CoursesActivity : BaseActivity(), ICourses.View, KTip.Listener {
-    private val mPresenter = CoursesPresenter()
+    @Inject
+    lateinit var mPresenter: ICourses.Presenter
     private val mCourses = mutableListOf<Course>()
     private val mAdapter: ChoiceRvAdapter by lazy {
         object : AutoChoiceRvAdapter() {
-            val tlBr = CornerTransformer.create(CornerTransformer.TYPE_TL or CornerTransformer.TYPE_BR)
-            val trBl = CornerTransformer.create(CornerTransformer.TYPE_TR or CornerTransformer.TYPE_BL)
+            private val borderWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4F, resources.displayMetrics)
+            private val tlBr = CornerTransformer.create(CornerTransformer.TYPE_TL or CornerTransformer.TYPE_BR, borderWidth, Color.RED)
+            private val trBl = CornerTransformer.create(CornerTransformer.TYPE_TR or CornerTransformer.TYPE_BL, borderWidth, Color.BLUE)
 
             override fun getLayoutResId(viewType: Int): Int = R.layout.item_course
 
@@ -45,13 +51,13 @@ class CoursesActivity : BaseActivity(), ICourses.View, KTip.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_courses)
+        DaggerCoursesComponent.builder().coursesModule(CoursesModule()).build().inject(this)
 
         rv_courses.layoutManager = LinearLayoutManager(this)
         rv_courses.addOnScrollListener(VanGoghScrollListener.Companion.Instance)
         rv_courses.adapter = mAdapter
 
         srl_root.setOnRefreshListener { mPresenter.toRefreshCourses() }
-
         mPresenter.onCreate(this)
     }
 
@@ -101,7 +107,6 @@ class CoursesActivity : BaseActivity(), ICourses.View, KTip.Listener {
     }
 
     override fun refreshCourses(courses: List<Course>) {
-        hideTip()
         mCourses.clear()
         mCourses.addAll(courses)
         mAdapter.notifyDataSetChanged()

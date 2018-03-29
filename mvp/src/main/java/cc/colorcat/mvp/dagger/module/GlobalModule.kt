@@ -1,4 +1,4 @@
-package cc.colorcat.mvp.module
+package cc.colorcat.mvp.dagger.module
 
 import android.content.Context
 import android.preference.PreferenceManager
@@ -18,6 +18,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
@@ -56,12 +57,16 @@ class GlobalModule(
                 val cacheSize = Math.min((cacheDir.usableSpace * 0.2).toLong(), 30L * 1024L * 1024L)
                 val cache = Cache(cacheDir, cacheSize)
 
-                val okClient = OkHttpClient.Builder()
-                        .addInterceptor(HttpLoggingInterceptor())
+                val okBuilder = OkHttpClient.Builder()
+                        .connectTimeout(15, TimeUnit.SECONDS)
+                        .readTimeout(15, TimeUnit.SECONDS)
+                        .writeTimeout(15, TimeUnit.SECONDS)
                         .cache(cache)
-                        .build()
+                if (debug) {
+                    okBuilder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                }
                 Retrofit.Builder()
-                        .client(okClient)
+                        .client(okBuilder.build())
                         .baseUrl(baseUrl)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

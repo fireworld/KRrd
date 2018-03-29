@@ -1,11 +1,11 @@
 package cc.colorcat.mvp
 
 import android.util.Log
-import cc.colorcat.mvp.component.DaggerGlobalComponent
-import cc.colorcat.mvp.component.GlobalComponent
+import cc.colorcat.mvp.dagger.component.DaggerGlobalComponent
+import cc.colorcat.mvp.dagger.component.GlobalComponent
+import cc.colorcat.mvp.dagger.module.GlobalModule
 import cc.colorcat.mvp.extension.L
 import cc.colorcat.mvp.extension.image.ImageLoader
-import cc.colorcat.mvp.module.GlobalModule
 
 /**
  * Created by cxx on 2018/3/1.

@@ -96,17 +96,26 @@ abstract class BaseDialogFragment : DialogFragment(), IBase.View {
      * 默认采用 [KTip.from(Fragment, int, KTip.Listener)] 创建，此种方式在 ViewPager 等中可能无法正常显示甚至崩溃，
      * 建议覆盖此实现，使用 [KTip.from(View, int, KTip.Listener)] 创建，选择合适的需要覆盖的 View 以显示 KTip.
      */
-    protected open val mTip: KTip by lazy { KTip.from(this, R.layout.network_error, this as? KTip.Listener) }
+    private lateinit var mTip: KTip
 
     final override fun showTip() {
+        if (!this::mTip.isInitialized) {
+            mTip = lazyKTip()
+        }
         mTip.showTip()
     }
 
     final override fun hideTip() {
-        mTip.hideTip()
+        if (this::mTip.isInitialized) {
+            mTip.hideTip()
+        }
     }
 
-    final override fun isTipShowing(): Boolean = mTip.isShowing
+    final override fun isTipShowing(): Boolean = this::mTip.isInitialized && mTip.isShowing
+
+    protected open fun lazyKTip(): KTip {
+        return KTip.from(this, R.layout.network_error, this as? KTip.Listener)
+    }
 
     final override fun toast(resId: Int) {
         if (isActive) {

@@ -69,17 +69,26 @@ abstract class BaseActivity : AppCompatActivity(), IBase.View {
     final override val isActive: Boolean
         get() = !isFinishing
 
-    protected open val mTip: KTip by lazy { KTip.from(this, R.layout.network_error, this as? KTip.Listener) }
+    private lateinit var mTip: KTip
 
     final override fun showTip() {
+        if (!this::mTip.isInitialized) {
+            mTip = lazyKTip()
+        }
         mTip.showTip()
     }
 
     final override fun hideTip() {
-        mTip.hideTip()
+        if (this::mTip.isInitialized) {
+            mTip.hideTip()
+        }
     }
 
-    final override fun isTipShowing(): Boolean = mTip.isShowing
+    final override fun isTipShowing(): Boolean = this::mTip.isInitialized && mTip.isShowing
+
+    protected open fun lazyKTip(): KTip {
+        return KTip.from(this, R.layout.network_error, this as? KTip.Listener)
+    }
 
     final override fun toast(@StringRes resId: Int) {
         this.toast(getText(resId))

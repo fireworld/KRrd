@@ -1,9 +1,9 @@
-package cc.colorcat.mvp.component
+package cc.colorcat.mvp.dagger.component
 
 import cc.colorcat.mvp.api.ApiFactory
 import cc.colorcat.mvp.extension.SPHelper
 import cc.colorcat.mvp.extension.json.JsonWrapper
-import cc.colorcat.mvp.module.GlobalModule
+import cc.colorcat.mvp.dagger.module.GlobalModule
 import dagger.Component
 import javax.inject.Singleton
 
