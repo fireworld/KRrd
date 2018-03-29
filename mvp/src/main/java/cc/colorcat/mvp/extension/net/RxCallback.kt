@@ -1,6 +1,7 @@
 package cc.colorcat.mvp.extension.net
 
 import cc.colorcat.mvp.entity.Result
+import cc.colorcat.mvp.extension.L
 import com.google.gson.JsonParseException
 import io.reactivex.observers.DisposableObserver
 import retrofit2.HttpException
@@ -34,7 +35,7 @@ class RxCallback<T>(private val listener: ApiListener<T>?) : DisposableObserver<
             }
             is HttpException -> {
                 code = Result.STATUS_CONNECT_ERROR
-                msg = "response code=${e.code()}, response msg=${e.message()}, cause=${e.message}"
+                msg = "${Result.MSG_CONNECT_ERROR}, responseCode=${e.code()} responseMsg=${e.message()} cause=${e.message}"
             }
             is IOException -> {
                 code = Result.STATUS_CONNECT_ERROR
@@ -43,6 +44,7 @@ class RxCallback<T>(private val listener: ApiListener<T>?) : DisposableObserver<
         }
         listener?.onFailure(code, msg)
         listener?.onFinish()
+        L.e(e)
     }
 
     override fun onComplete() {

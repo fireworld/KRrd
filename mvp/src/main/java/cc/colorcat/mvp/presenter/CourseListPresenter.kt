@@ -23,8 +23,8 @@ class CourseListPresenter : AbsListPresenter<Course>() {
 
                 override fun onFailure(view: IList.View<Course>, code: Int, msg: String) {
                     super.onFailure(view, code, msg)
-                    L.e("code=$code, msg=$msg")
                     view.showTip()
+                    L.e("onFailure, code=$code, msg=$msg")
                 }
 
                 override fun onFinish(view: IList.View<Course>) {

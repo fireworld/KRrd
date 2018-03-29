@@ -29,13 +29,7 @@ class CoursesPresenter : BasePresenter<ICourses.View>(), ICourses.Presenter {
     private fun realGetCourses() {
         enqueue(mService.getCourses(4, 30)) {
             object : WeakListener<List<Course>, ICourses.View>(mView) {
-                override fun onStart(view: ICourses.View) {
-                    super.onStart(view)
-                    L.v("onStart from ICourses")
-                }
-
                 override fun onSuccess(view: ICourses.View, data: List<Course>) {
-                    L.d("onSuccess from ICourses")
                     view.hideTip()
                     view.refreshCourses(data)
                 }
@@ -43,12 +37,11 @@ class CoursesPresenter : BasePresenter<ICourses.View>(), ICourses.Presenter {
                 override fun onFailure(view: ICourses.View, code: Int, msg: String) {
                     super.onFailure(view, code, msg)
                     view.showTip()
-                    L.d("onFailure from ICourses, code=$code, msg=$msg")
+                    L.d("onFailure, code=$code, msg=$msg")
                 }
 
                 override fun onFinish(view: ICourses.View) {
                     super.onFinish(view)
-                    L.d("onFinish from ICourses")
                     view.stopRefresh()
                 }
             }
